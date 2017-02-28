@@ -1,0 +1,73 @@
+---
+title: "TD4Application"
+author: "MugnierJulien&AnthonyRubat"
+date: "14 février 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Lecture des données
+
+Les données que nous avons choisies représentent les apparitions de lynx entre les années 1820 et 1930.
+En étudiant ces données, nous pourons identifier certaines tendances notament au niveau du nombre d'individus apparus au fil des années
+
+```{r}
+df <- read.csv("/home/julien/Documents/ModelStat/proglitt/TD4/data/lynx.csv", header=TRUE)
+head(df);
+```
+
+## Courbes
+
+Ce graphique représente le nombre d'apparitions de lynx par années
+x  = les années
+y = le nombre de lynx
+On peut dénoter de forts pics d'apparation ainsi que des années où le lynx ne s'est presque pas montré.
+
+```{r}
+ggplot(data=df, aes(x=time, y=lynx)) + geom_point() + geom_line();
+```
+
+## Nuage de points
+
+```{r}
+ggplot(data=df, aes(x=time, y=lynx)) + geom_point() + theme_bw();
+```
+
+
+
+## Histogramme par lynx avec taille des colonnes
+
+x = nombre de lynx s'étant montrés
+On peut voir sur cet histogramme que l'on ne voit généralement pas beaucoup de lynx par an malgré quelques années exceptionelles 
+où l'on a pu apercevoir plus de 6000 individus
+
+```{r}
+ggplot(data=df) + geom_histogram(aes(x=lynx), binwidth=50);
+```
+
+## Histogramme par lynx avec le nombre de colonnes
+
+```{r}
+ggplot(data=df) + geom_histogram(aes(x=lynx), bins=15);
+```
+
+
+
+## Boxplot avec tous les points
+
+```{r, fig.width=3, fig.height=5}
+ggplot(df, aes(x=1, y=lynx)) + geom_boxplot() + geom_point();
+```
+
+## Boxplot avec moyenne
+
+```{r, fig.width=3, fig.height=5}
+ggplot(df, aes(x=1, y=lynx)) + geom_boxplot() + geom_point(y=mean(df$lynx));
+```
+
+
+
+
